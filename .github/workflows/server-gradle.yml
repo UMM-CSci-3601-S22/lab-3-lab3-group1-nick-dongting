@@ -1,0 +1,25 @@
+name: Server Java
+
+on: [push]
+
+jobs:
+  gradle-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    - name: Cache Gradle artifacts (downloaded JARs, the wrapper, and any downloaded JDKs)
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+          ~/.gradle/jdks
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/.gradle/') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Build with Gradle
+      run: ./gradlew build
+      working-directory: ./server

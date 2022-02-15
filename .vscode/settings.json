@@ -1,0 +1,28 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.server.launchMode": "Standard",
+    "eslint.workingDirectories": [ "./client" ],
+    "eslint.options": {
+      "extensions": [".ts", ".html"]
+    },
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "html"
+    ],
+    "cSpell.words": [
+      "Chainable",
+      "CSCI",
+      "DATAGENE",
+      "jacoco",
+      "Javalin",
+      "KINETICUT",
+      "LABTASKS",
+      "MOMENTIA",
+      "OHMNET",
+      "routerlink",
+      "sidenav",
+      "todos"
+    ],
+    "angular.enable-experimental-ivy-prompt": false,
+}
