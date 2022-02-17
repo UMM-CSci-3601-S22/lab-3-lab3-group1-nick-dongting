@@ -72,7 +72,7 @@ export class TodoService {
    * @param id the ID of the desired user
    * @returns an `Observable` containing the resulting user.
    */
-  getTodosById(id: string): Observable<Todo> {
+  getTodoById(id: string): Observable<Todo> {
     return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
   }
 
