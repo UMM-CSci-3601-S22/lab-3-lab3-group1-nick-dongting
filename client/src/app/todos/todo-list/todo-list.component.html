@@ -28,11 +28,14 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <input matInput id="todo-status-input" placeholder="Filter by Status"
-            [(ngModel)]="todoStatus" (input)="getTodosFromServer()">
-            <mat-hint>Filtered on server</mat-hint>
-          </mat-form-field>
-
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" data-test="todoStatusSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="complete">Complete</mat-option>
+              <mat-option value="incomplete">Incomplete</mat-option>
+          </mat-select>
+          <mat-hint>Filtered on server</mat-hint>
+        </mat-form-field>
+        
           <mat-form-field class="input-field">
             <mat-label>Body</mat-label>
             <input matInput id="todo-body-text-input" placeholder="Filter by Body"

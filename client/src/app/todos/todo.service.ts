@@ -49,15 +49,15 @@ export class TodoService {
       if (filters.status) {
         httpParams = httpParams.set('status', filters.status);
       }
-      if (filters.owner) {
-        httpParams = httpParams.set('owner', filters.owner);
-      }
+      // if (filters.owner) {
+      //   httpParams = httpParams.set('owner', filters.owner);
+      // }
       if (filters.bodyText) {
-        httpParams = httpParams.set('bodyText', filters.bodyText);
+        httpParams = httpParams.set('contains', filters.bodyText);
       }
-      if (filters.category) {
-        httpParams = httpParams.set('category', filters.category);
-      }
+      // if (filters.category) {
+      //   httpParams = httpParams.set('c', filters.category);
+      // }
     }
     // Send the HTTP GET request with the given URL and parameters.
     // That will return the desired `Observable<Todo[]>`.

@@ -56,8 +56,8 @@ public class TodoDatabase {
     Todo[] filteredTodos = allTodos;
 
     // Filter status if defined
-    if (queryParams.containsKey(STATUS)) {
-      String targetStatus = queryParams.get(STATUS).get(0);
+    if (queryParams.containsKey("status")) {
+      String targetStatus = queryParams.get("status").get(0);
       filteredTodos = filterTodosByStatus(filteredTodos, targetStatus);
     }
     // Filter body if defined
