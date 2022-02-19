@@ -21,6 +21,13 @@
             [(ngModel)]="todoCategory" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Limit</mat-label>
+            <input matInput id="todo-limit-input" placeholder="Limit"
+            [(ngModel)]="todoLimit" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayoutGap="10px">
@@ -35,14 +42,14 @@
           </mat-select>
           <mat-hint>Filtered on server</mat-hint>
         </mat-form-field>
-        
+
           <mat-form-field class="input-field">
             <mat-label>Body</mat-label>
             <input matInput id="todo-body-text-input" placeholder="Filter by Body"
             [(ngModel)]="todoBodyText" (input)="getTodosFromServer()">
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
-        </div>
+      </div>
 
         <br>
         <div fxLayout="row wrap" fxLayoutGap="10px">
