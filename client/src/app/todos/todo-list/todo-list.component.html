@@ -49,6 +49,18 @@
             [(ngModel)]="todoBodyText" (input)="getTodosFromServer()">
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoSort" data-test="todoSortSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="body">Body</mat-option>
+              <mat-option value="status">Status</mat-option>
+              <mat-option value="category">Category</mat-option>
+              <mat-option value="owner">Owner</mat-option>
+          </mat-select>
+          <mat-hint>Filtered on server</mat-hint>
+        </mat-form-field>
       </div>
 
         <br>
