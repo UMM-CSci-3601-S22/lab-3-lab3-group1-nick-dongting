@@ -6,6 +6,7 @@ import { Todo } from '../todo-list/todo';
   templateUrl: './todo-card.component.html',
   styleUrls: ['./todo-card.component.scss']
 })
+
 export class TodoCardComponent {
   @Input() todo: Todo;
   @Input() simple?: boolean = false;

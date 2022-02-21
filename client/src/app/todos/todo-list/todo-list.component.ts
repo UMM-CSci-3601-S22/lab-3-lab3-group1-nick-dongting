@@ -20,7 +20,6 @@ export class TodoListComponent implements OnInit {
   public todoLimit: number;
   public viewType: 'card' | 'list' = 'card';
 
-
   constructor(private todoService: TodoService, private snackBar: MatSnackBar) {
    }
 
