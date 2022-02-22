@@ -49,6 +49,35 @@ async function constructTodoList() {
   fixture.detectChanges();
 }
 
+describe('TodoListComponent', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS],
+      declarations: [TodoListComponent, TodoCardComponent],
+      providers: [{ provide: TodoService, useValue: new MockTodoService() }]
+    });
+  });
+
+  beforeEach(waitForAsync(constructTodoList));
+
+  it('contains all the todos', () => {
+    expect(todoList.serverFilteredTodos.length).toBe(3);
+  });
+
+  it('contains a todo owned by "Chris"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Chris')).toBe(true);
+  });
+
+  it('contains a todo owned by "Jamie"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Jamie')).toBe(true);
+  });
+
+  it('doesn\'t contain a todo owned by "Bobby"', () => {
+    expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Bobby')).toBe(false);
+  });
+
+});
+
 describe('Misbehaving Todo List', () => {
 
   let todoServiceStub: {
@@ -78,32 +107,4 @@ describe('Misbehaving Todo List', () => {
   it('fails to load todos if we do not set up a TodoListService', () => {
     expect(todoList.serverFilteredTodos).toBeUndefined();
   });
-});
-
-describe('TodoListComponent', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [COMMON_IMPORTS],
-      declarations: [TodoListComponent, TodoCardComponent],
-      providers: [{ provide: TodoService, useValue: new MockTodoService() }]
-    });
-
-    beforeEach(waitForAsync(constructTodoList));
-
-    it('contains all the todos', () => {
-      expect(todoList.serverFilteredTodos.length).toBe(3);
-    });
-
-    it('contains an owner named "Chris"', () => {
-      expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Chris')).toBe(true);
-    });
-
-    it('contains an owner named "Pat"', () => {
-      expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Pat')).toBe(true);
-    });
-
-    it('doesn\'t contain a todo named "Bobby"', () => {
-      expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Bobby')).toBe(false);
-    });
-});
 });
