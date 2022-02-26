@@ -29,5 +29,6 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         start: ${{ github.workspace }}/server/gradlew run -p ${{ github.workspace }}/server/
+        command: ~/client/node_modules/cypress/bin/cypress install
         command: npm run e2e
         working-directory: ./client
