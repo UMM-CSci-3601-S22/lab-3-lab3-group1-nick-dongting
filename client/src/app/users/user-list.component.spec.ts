@@ -155,3 +155,4 @@ describe('Misbehaving User List', () => {
     expect(userList.serverFilteredUsers).toBeUndefined();
   });
 });
+

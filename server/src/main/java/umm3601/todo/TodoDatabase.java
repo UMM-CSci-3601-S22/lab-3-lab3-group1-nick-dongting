@@ -56,8 +56,8 @@ public class TodoDatabase {
     Todo[] filteredTodos = allTodos;
 
     // Filter status if defined
-    if (queryParams.containsKey(STATUS)) {
-      String targetStatus = queryParams.get(STATUS).get(0);
+    if (queryParams.containsKey("status")) {
+      String targetStatus = queryParams.get("status").get(0);
       filteredTodos = filterTodosByStatus(filteredTodos, targetStatus);
     }
     // Filter body if defined
@@ -77,6 +77,7 @@ public class TodoDatabase {
     }
     // Sort todo with specific order if defined
     if (queryParams.containsKey("orderBy")) {
+      System.out.println("do we get here");
       String targetOrder = queryParams.get("orderBy").get(0);
       filteredTodos = sortTodos(filteredTodos, targetOrder);
     }
