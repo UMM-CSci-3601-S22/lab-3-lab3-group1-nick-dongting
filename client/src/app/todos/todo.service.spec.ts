@@ -109,7 +109,7 @@ describe('TodoService', () => {
         // Check that the request made to that URL was a GET request.
         expect(req.request.method).toEqual('GET');
 
-        // Check that the role parameter was 'admin'
+        // Check that the status/contains parameter was 'admin'
         expect(req.request.params.get('contains')).toEqual('UMM');
 
         req.flush(testTodos);
@@ -121,7 +121,7 @@ describe('TodoService', () => {
           todos => expect(todos).toBe(testTodos)
         );
 
-        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        // Specify that (exactly) one request will be made to the specified URL with the status/contains parameter.
         const req = httpTestingController.expectOne(
           (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('status')
         );
@@ -129,7 +129,7 @@ describe('TodoService', () => {
         // Check that the request made to that URL was a GET request.
         expect(req.request.method).toEqual('GET');
 
-        // Check that the role parameter was 'admin'
+        // Check that the status/contains parameter was 'admin'
         expect(req.request.params.get('status')).toEqual('true');
 
         req.flush(testTodos);
@@ -141,7 +141,7 @@ describe('TodoService', () => {
           todos => expect(todos).toBe(testTodos)
         );
 
-        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        // Specify that (exactly) one request will be made to the specified URL with status/contains parameter.
         const req = httpTestingController.expectOne(
           (request) => request.url.startsWith(todoService.todoUrl)
             && request.params.has('status') && request.params.has('contains')
@@ -150,7 +150,7 @@ describe('TodoService', () => {
         // Check that the request made to that URL was a GET request.
         expect(req.request.method).toEqual('GET');
 
-        // Check that the role parameters are correct
+        // Check that the status/contains parameters are correct
         expect(req.request.params.get('status')).toEqual('true');
         expect(req.request.params.get('contains')).toEqual('UMM');
 
@@ -198,9 +198,9 @@ describe('TodoService', () => {
       const todoOwner = 'i';
       const filteredTodos = todoService.filterTodos(testTodos, { owner: todoOwner });
       // There should be two todos with an 'i' in their
-      // name: Chris and Jamie.
+      // owner name: Chris and Jamie.
       expect(filteredTodos.length).toBe(2);
-      // Every returned todo's name should contain an 'i'.
+      // Every returned todo's owner name should contain an 'i'.
       filteredTodos.forEach(todo => {
         expect(todo.owner.indexOf(todoOwner)).toBeGreaterThanOrEqual(0);
       });
@@ -209,9 +209,9 @@ describe('TodoService', () => {
     it('filters by category', () => {
       const todoCategory = 'admin';
       const filteredTodos = todoService.filterTodos(testTodos, { category: todoCategory });
-      // There should be just one todo that has UMM as their company.
+      // There should be just one todo that has UMM as their body.
       expect(filteredTodos.length).toBe(1);
-      // Every returned todo's company should contain 'UMM'.
+      // Every returned todo's body should contain 'UMM'.
       filteredTodos.forEach(todo => {
         expect(todo.category.indexOf(todoCategory)).toBeGreaterThanOrEqual(0);
       });
@@ -219,9 +219,9 @@ describe('TodoService', () => {
 
     it('filters by owner and category', () => {
       // There's only one todo (Chris) whose name
-      // contains an 'i' and whose company contains
+      // contains an 'i' and whose body contains
       // an 'M'. There are two whose name contains
-      // an 'i' and two whose company contains an
+      // an 'i' and two whose body contains an
       // an 'M', so this should test combined filtering.
       const todoOwner = 'i';
       const todoCategory = 'a';

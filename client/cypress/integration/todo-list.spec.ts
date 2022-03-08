@@ -14,7 +14,7 @@ describe('Todo list', () => {
 
 
   it('Should type something in the owner filter and check that it returned correct elements', () => {
-    // Filter for todo 'Fry'
+    // Filter for todo owner 'Fry'
     cy.get('#todo-owner-input').type('Fry');
 
     // All of the todo cards should have the owner's name we are filtering by
@@ -26,44 +26,6 @@ describe('Todo list', () => {
     page.getTodoCards().find('.todo-card-owner').each(el =>
       expect(el.text()).to.equal('Fry')
     );
-  });
-
-  it('Should type something in the body filter and check that it returned correct elements', () => {
-    cy.get('#todo-body-text-input').type('Ipsum esse est ullamco magna');
-
-    page.getTodoCards().should('have.lengthOf.above', 0);
-
-    // All of the todo cards should have the body we are filtering by
-    page.getTodoCards().each(card => {
-      cy.wrap(card).find('.todo-card-owner').should('have.text', 'Fry');
-    });
-
-    page.clickViewProfile(page.getTodoCards().first());
-
-    // All of the todo cards should have the body we are filtering by
-    cy.get('.todo-card-body').first().should('contain.text', 'Ipsum esse est ullamco magna');
-  });
-
-  it('Should type something partial in the body filter and check that it returned correct elements', () => {
-    // Filter for body that contain 'esse est dolore'
-    cy.get('#todo-body-text-input').type('esse est dolore');
-
-    page.getTodoCards().should('have.lengthOf.above', 0);
-
-    page.getTodoCards().each(card => {
-      cy.wrap(card).find('.todo-card-owner').should('have.text', 'Blanche');
-    });
-
-    page.clickViewProfile(page.getTodoCards().first());
-
-    // Go through each of the cards that are being shown and get the companies
-    cy.get('.todo-card-body').first()
-      // We should see these body keywords
-      .should('contain.text', 'non nulla')
-      .should('contain.text', 'aliquip')
-      // We shouldn't see these body keywords
-      .should('not.contain.text', 'NOTEXIST')
-      .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
   });
 
   it('Should type something in the category filter and check that it returned correct elements', () => {
@@ -95,6 +57,112 @@ describe('Todo list', () => {
       .should('not.contain.text', 'software');
   });
 
+  it('Should type a number in limit filter and check that it returned correct amount of elements', () => {
+    // Filter for limit '3'
+    cy.get('#todo-limit-input').type('3');
+
+    page.getTodoCards().should('have.lengthOf', 3);
+  });
+
+  it('Should select a status and check that it returned correct elements', () => {
+    // Filter for status 'complete');
+    page.selectStatus('complete');
+
+    // Some of the todos should be listed
+    page.getTodoCards().should('have.lengthOf.above', 0);
+
+    // All of the todo list items that show should have the status we are looking for
+    page.getTodoCards().each(card => {
+      cy.wrap(card).find('.todo-card-status').should('contain.text', 'checkComplete');
+    });
+  });
+
+  it('Should type something in the body filter and check that it returned correct elements', () => {
+    cy.get('#todo-body-text-input').type('Ipsum esse est ullamco magna');
+
+    page.getTodoCards().should('have.lengthOf.above', 0);
+
+    // All of the todo cards should have the body we are filtering by
+    page.getTodoCards().each(card => {
+      cy.wrap(card).find('.todo-card-owner').should('have.text', 'Fry');
+    });
+
+    page.clickViewProfile(page.getTodoCards().first());
+
+    // All of the todo cards should have the body we are filtering by
+    cy.get('.todo-card-body').first().should('contain.text', 'Ipsum esse est ullamco magna');
+  });
+
+  it('Should type something partial in the body filter and check that it returned correct elements', () => {
+    // Filter for body that contain 'esse est dolore'
+    cy.get('#todo-body-text-input').type('esse est dolore');
+
+    page.getTodoCards().should('have.lengthOf.above', 0);
+
+    page.clickViewProfile(page.getTodoCards().first());
+
+    // Go through each of the cards that are being shown and get the companies
+    cy.get('.todo-card-body').first()
+      // We should see these body keywords
+      .should('contain.text', 'non nulla')
+      .should('contain.text', 'aliquip')
+      // We shouldn't see these body keywords
+      .should('not.contain.text', 'NOTEXIST')
+      .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
+  });
+
+  it('Should select sortBy filter / by Body and check that it returned correct elements', () => {
+    // Filter for body that contain 'esse est dolore'
+    page.selectSortBy('body');
+
+    page.getTodoCards().should('have.lengthOf.above', 0);
+
+    page.clickViewProfile(page.getTodoCards().first());
+
+    // Go through each of the cards that are being shown
+    cy.get('.todo-card-owner').first().should('have.text', 'Roberta');
+    cy.get('.todo-card-body').first()
+      // We should see these body keywords
+      .should('contain.text', 'Ad sint incididunt')
+      .should('contain.text', 'nisi sunt mollit')
+      // We shouldn't see these body keywords
+      .should('not.contain.text', 'NOTEXIST')
+      .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
+  });
+
+  it('Should returned correct elements with multiple filters', () => {
+    // Filter for status 'complete', limit '5', and sort by 'category'
+    page.selectStatus('complete');
+    cy.get('#todo-limit-input').type('5');
+    page.selectSortBy('category');
+
+    // Some of the todos should be listed
+    page.getTodoCards().should('have.lengthOf', 5);
+
+    // All of the todo list items that show should have the status we are looking for
+    page.getTodoCards().each(card => {
+      cy.wrap(card).find('.todo-card-status').should('contain.text', 'checkComplete');
+    });
+
+    page.clickViewProfile(page.getTodoCards().first());
+
+    cy.get('.todo-card-owner').first().should('have.text', 'Blanche');
+
+    cy.get('.todo-card-category').first()
+      // We should see these keywords
+      .should('contain.text', 'groceries')
+      // We shouldn't see these keywords
+      .should('not.contain.text', 'homework')
+      .should('not.contain.text', 'software');
+
+    cy.get('.todo-card-body').first()
+    // We should see these body keywords
+    .should('contain.text', 'Aliqua esse aliqua')
+    .should('contain.text', 'id nisi ea')
+    // We shouldn't see these body keywords
+    .should('not.contain.text', 'NOTEXIST')
+    .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
+  });
 
   it('Should change the view', () => {
     // Choose the view type "List"

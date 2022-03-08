@@ -6,11 +6,11 @@ import { Todo } from './todo-list/todo';
 
 /**
  * Service that provides the interface for getting information
- * about `Users` from the server.
+ * about `Todos` from the server.
  */
 @Injectable()
 export class TodoService {
-  // The URL for the users part of the server API.
+  // The URL for the todos part of the server API.
   readonly todoUrl: string = environment.apiUrl + 'todos';
 
   // The private `HttpClient` is *injected* into the service
@@ -24,17 +24,17 @@ export class TodoService {
   }
 
   /**
-   * Get all the users from the server, filtered by the information
+   * Get all the todos from the server, filtered by the information
    * in the `filters` map.
    *
-   * It would be more consistent with `UserListComponent` if this
-   * only supported filtering on age and role, and left company to
-   * just be in `filterUsers()` below. We've included it here, though,
+   * It would be more consistent with `TodoListComponent` if this
+   * only supported filtering on status and sort, and left bodyText to
+   * just be in `filterTodos()` below. We've included it here, though,
    * to provide some additional examples.
    *
-   * @param filters a map that allows us to specify a target role, age,
-   *  or company to filter by, or any combination of those
-   * @returns an `Observable` of an array of `Users`. Wrapping the array
+   * @param filters a map that allows us to specify a target status and sort, and
+   * left bodyText to filter by, or any combination of those
+   * @returns an `Observable` of an array of `Todos`. Wrapping the array
    *  in an `Observable` means that other bits of of code can `subscribe` to
    *  the result (the `Observable`) and get the results that come back
    *  from the server after a possibly substantial delay (because we're
@@ -64,17 +64,17 @@ export class TodoService {
   }
 
   /**
-   * Get the `User` with the specified ID.
+   * Get the `Todo` with the specified ID.
    *
-   * @param id the ID of the desired user
-   * @returns an `Observable` containing the resulting user.
+   * @param id the ID of the desired todo
+   * @returns an `Observable` containing the resulting todo.
    */
   getTodoById(id: string): Observable<Todo> {
     return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
   }
 
   /**
-   * A service method that filters an array of `User` using
+   * A service method that filters an array of `Todo` using
    * the specified filters.
    *
    * Note that the filters here support partial matches. Since the
@@ -82,9 +82,9 @@ export class TodoService {
    * partial matches instead of waiting until we have a full string
    * to match against.
    *
-   * @param todos the array of `Users` that we're filtering
+   * @param todos the array of `Todos` that we're filtering
    * @param filters the map of key-value pairs used for the filtering
-   * @returns an array of `Users` matching the given filters
+   * @returns an array of `Todos` matching the given filters
    */
   filterTodos(todos: Todo[], filters: { owner?: string; category?: string; limit?: number }): Todo[] {
     let filteredTodos = todos;
