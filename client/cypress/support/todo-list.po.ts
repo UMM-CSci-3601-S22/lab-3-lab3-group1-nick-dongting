@@ -45,7 +45,7 @@ export class TodoListPage {
    * @param card The todo card
    */
   clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click();
+    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click({force:true});
   }
 
   /**

@@ -111,24 +111,24 @@ describe('Todo list', () => {
       .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
   });
 
-  // it('Should select sortBy filter / by Body and check that it returned correct elements', () => {
-  //   // Filter for sortBy
-  //   page.selectSortBy('body');
+  it('Should select sortBy filter / by Body and check that it returned correct elements', () => {
+    // Filter for sortBy
+    page.selectSortBy('body');
 
-  //   page.getTodoCards().should('have.lengthOf.above', 0);
+    page.getTodoCards().should('have.lengthOf.above', 0);
 
-  //   page.clickViewProfile(page.getTodoCards().first());
+    page.clickViewProfile(page.getTodoCards().first());
 
-  //   // Go through each of the cards that are being shown
-  //   cy.get('.todo-card-owner').first().should('have.text', 'Roberta');
-  //   cy.get('.todo-card-body').first()
-  //     // We should see these body keywords
-  //     .should('contain.text', 'Ad sint incididunt')
-  //     .should('contain.text', 'nisi sunt mollit')
-  //     // We shouldn't see these body keywords
-  //     .should('not.contain.text', 'NOTEXIST')
-  //     .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
-  // });
+    // Go through each of the cards that are being shown
+    cy.get('.todo-card-owner').first().should('have.text', 'Roberta');
+    cy.get('.todo-card-body').first()
+      // We should see these body keywords
+      .should('contain.text', 'Ad sint incididunt')
+      .should('contain.text', 'nisi sunt mollit')
+      // We shouldn't see these body keywords
+      .should('not.contain.text', 'NOTEXIST')
+      .should('not.contain.text', 'IMPOSSIBLETOHAVETHIS');
+  });
 
   it('Should returned correct elements with multiple filters', () => {
     // Filter for status 'complete', limit '5', and sort by 'category'
