@@ -77,7 +77,6 @@ public class TodoDatabase {
     }
     // Sort todo with specific order if defined
     if (queryParams.containsKey("orderBy")) {
-      System.out.println("do we get here");
       String targetOrder = queryParams.get("orderBy").get(0);
       filteredTodos = sortTodos(filteredTodos, targetOrder);
     }

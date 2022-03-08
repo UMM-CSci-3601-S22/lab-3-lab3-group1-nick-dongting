@@ -45,7 +45,7 @@ export class TodoListPage {
    * @param card The todo card
    */
   clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click();
+    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click({force:true});
   }
 
   /**
@@ -58,11 +58,20 @@ export class TodoListPage {
   }
 
   /**
-   * Selects a role to filter in the "Role" selector.
+   * Selects a role to filter in the "Status" selector.
    *
    * @param value The role *value* to select, this is what's found in the mat-option "value" attribute.
    */
   selectStatus(value: string) {
     return cy.get('[data-test=todoStatusSelect]').click().get(`mat-option[value="${value}"]`).click();
+  }
+
+  /**
+   * Selects a role to filter in the "SortBy" selector.
+   *
+   * @param value The role *value* to select, this is what's found in the mat-option "value" attribute.
+   */
+  selectSortBy(value: string) {
+    return cy.get('[data-test=todoSortSelect]').click().get(`mat-option[value="${value}"]`).click();
   }
 }
