@@ -120,7 +120,6 @@ describe('Todo list', () => {
     page.clickViewProfile(page.getTodoCards().first());
 
     // Go through each of the cards that are being shown
-    cy.get('.todo-card-owner').first().should('have.text', 'Roberta');
     cy.get('.todo-card-body').first()
       // We should see these body keywords
       .should('contain.text', 'Ad sint incididunt')
